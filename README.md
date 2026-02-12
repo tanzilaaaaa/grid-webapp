@@ -55,6 +55,35 @@ npm run build
 npm start
 ```
 
+## How to Use
+
+### Basic Interaction
+1. **Click any box** to increment its value by 1
+2. **Watch the colors change** based on the value:
+   - Even numbers (0, 2, 4...): Gray background (#e0e0e0) with black text
+   - Odd numbers (1, 3, 5...): Dark blue background (#1a237e) with white text
+
+### Ripple Effects
+When a box reaches certain values, it triggers effects on neighboring boxes:
+
+- **Rule A - Divisible by 3**: When a box value becomes divisible by 3 (3, 6, 9, 12...), the box immediately to its **right** decrements by 1
+  - Exception: Boxes in the last column (rightmost) have no right neighbor, so no effect occurs
+  
+- **Rule B - Divisible by 5**: When a box value becomes divisible by 5 (5, 10, 15...), the box immediately **below** it increments by 2
+  - Exception: Boxes in the bottom row have no bottom neighbor, so no effect occurs
+
+### Locked Boxes
+**When a box reaches a value of 15 or higher, it becomes locked:**
+- The box background turns **red** with **white text**
+- The box **cannot be clicked** anymore (cursor shows "not-allowed")
+- **Ripple effects from neighboring boxes cannot change its value** — locked boxes are protected from all modifications
+- The locked box will remain at its current value regardless of what happens to its neighbors
+
+### Example Scenario
+1. Click a box until it reaches value 3 → Its right neighbor decrements by 1
+2. Continue clicking until the box reaches value 5 → Its bottom neighbor increments by 2
+3. Keep clicking until the box reaches value 15 → The box locks (turns red), cannot be clicked, and is protected from ripple effects
+
 ## Project Structure
 
 ```
