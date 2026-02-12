@@ -22,10 +22,13 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 - Click any box to increment its value
 - Watch the colors change (even = gray, odd = dark blue)
-- Click until a box reaches 15 to see it lock (red)
 - Observe ripple effects:
-  - Divisible by 3: Right neighbor decrements
+  - Divisible by 3: Right neighbor decrements by 1
   - Divisible by 5: Bottom neighbor increments by 2
+- Click until a box reaches 15 to see it lock:
+  - Background turns red
+  - Cannot be clicked anymore
+  - Ripple effects cannot change its value
 
 ## 3. Deploy to Vercel (3 minutes)
 
