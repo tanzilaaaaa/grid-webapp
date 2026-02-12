@@ -96,15 +96,16 @@ Follow [GITHUB_DEPLOYMENT_STEPS.md](./GITHUB_DEPLOYMENT_STEPS.md):
 
 1. **Click a box** to increment its value by 1
 2. **Watch colors change**:
-   - Even numbers: Gray background
-   - Odd numbers: Dark blue background
+   - Even numbers: Gray background (#e0e0e0) with black text
+   - Odd numbers: Dark blue background (#1a237e) with white text
 3. **Observe ripple effects**:
-   - When value is divisible by 3: Right neighbor decrements
+   - When value is divisible by 3: Right neighbor decrements by 1
    - When value is divisible by 5: Bottom neighbor increments by 2
-4. **See locked state** when value reaches 15:
-   - Background turns red
-   - Box cannot be clicked
-   - Ripple effects don't modify it
+4. **Locked boxes** (value ≥ 15):
+   - Background turns red with white text
+   - Box cannot be clicked anymore
+   - Ripple effects from neighbors cannot change its value
+   - The box is permanently protected once locked
 
 ## 📁 Project Structure
 
