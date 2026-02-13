@@ -1,23 +1,29 @@
-# Interactive Grid Application
+# Grid Game
 
-A production-ready Next.js web application featuring an interactive 3×3 grid with dynamic ripple effects and state management.
+A fun interactive number grid game where clicking boxes triggers chain reactions. It's like a puzzle where numbers influence their neighbors!
 
-## Features
+## What's This About?
 
-- **3×3 Interactive Grid**: 9 clickable boxes with dynamic value updates
-- **Ripple Effects**: 
-  - Rule A: When a box value is divisible by 3, decrement the right neighbor by 1
-  - Rule B: When a box value is divisible by 5, increment the bottom neighbor by 2
-- **Locked State**: Boxes with values ≥ 15 become locked (red background, disabled)
-- **Dynamic Styling**:
-  - Even numbers: Gray background (#e0e0e0) with black text
-  - Odd numbers: Dark blue background (#1a237e) with white text
-  - Locked state: Red background with white text
-- **Visual Polish**:
-  - 4px rounded corners
-  - 2px 2px 0px black shadow
-  - Hover animations (scale effect)
-  - Smooth transitions
+You get a 3×3 grid with 9 boxes, all starting at 0. Click any box to increase its number by 1. Simple enough, but here's the twist — when numbers hit certain values, they trigger effects on neighboring boxes, creating interesting chain reactions.
+
+## How It Works
+
+**The Basic Stuff:**
+- Click a box → its number goes up by 1
+- Even numbers show as gray boxes
+- Odd numbers show as dark blue boxes
+- Everything has smooth animations and shadows
+
+**The Chain Reactions:**
+- When a box hits a multiple of 3 (3, 6, 9...), the box to its right decreases by 1
+- When a box hits a multiple of 5 (5, 10, 15...), the box below it increases by 2
+- These ripple effects cascade through the grid, creating interesting patterns
+
+**The Locked State:**
+- Once any box reaches 15 or higher, it locks permanently
+- Locked boxes turn red and can't be clicked
+- Other boxes can't change a locked box's value either
+- It's like that box becomes frozen and protected
 
 ## Tech Stack
 
@@ -36,7 +42,7 @@ A production-ready Next.js web application featuring an interactive 3×3 grid wi
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/tanzilaaaaa/grid-webapp.git
 cd grid-app
 
 # Install dependencies
@@ -46,7 +52,7 @@ npm install
 npm run dev
 ```
 
-The application will be available at `http://localhost:3000`
+Open http://localhost:3000 in your browser.
 
 ### Build for Production
 
@@ -55,42 +61,13 @@ npm run build
 npm start
 ```
 
-## How to Use
-
-### Basic Interaction
-1. **Click any box** to increment its value by 1
-2. **Watch the colors change** based on the value:
-   - Even numbers (0, 2, 4...): Gray background (#e0e0e0) with black text
-   - Odd numbers (1, 3, 5...): Dark blue background (#1a237e) with white text
-
-### Ripple Effects
-When a box reaches certain values, it triggers effects on neighboring boxes:
-
-- **Rule A - Divisible by 3**: When a box value becomes divisible by 3 (3, 6, 9, 12...), the box immediately to its **right** decrements by 1
-  - Exception: Boxes in the last column (rightmost) have no right neighbor, so no effect occurs
-  
-- **Rule B - Divisible by 5**: When a box value becomes divisible by 5 (5, 10, 15...), the box immediately **below** it increments by 2
-  - Exception: Boxes in the bottom row have no bottom neighbor, so no effect occurs
-
-### Locked Boxes
-**When a box reaches a value of 15 or higher, it becomes locked:**
-- The box background turns **red** with **white text**
-- The box **cannot be clicked** anymore (cursor shows "not-allowed")
-- **Ripple effects from neighboring boxes cannot change its value** — locked boxes are protected from all modifications
-- The locked box will remain at its current value regardless of what happens to its neighbors
-
-### Example Scenario
-1. Click a box until it reaches value 3 → Its right neighbor decrements by 1
-2. Continue clicking until the box reaches value 5 → Its bottom neighbor increments by 2
-3. Keep clicking until the box reaches value 15 → The box locks (turns red), cannot be clicked, and is protected from ripple effects
-
 ## Project Structure
 
 ```
 grid-app/
 ├── app/
 │   ├── components/
-│   │   └── Grid.tsx          # Main grid component with all logic
+│   │   └── Grid.tsx          # Main grid component
 │   ├── page.tsx              # Home page
 │   ├── layout.tsx            # Root layout
 │   └── globals.css           # Global styles
@@ -101,85 +78,33 @@ grid-app/
 └── next.config.ts
 ```
 
-## Component Details
+## How the Grid Works
 
-### Grid Component (`app/components/Grid.tsx`)
-
-The main component that manages:
-
-1. **State Management**: Uses React hooks to manage a 9-element array representing grid values
-2. **Click Handler**: Increments clicked box value by 1 (if not locked)
-3. **Ripple Effects**: Applies rules after each increment
-4. **Styling Logic**: Determines box appearance based on value and locked state
-
-#### Ripple Effect Logic
-
-```typescript
-// Rule A: Divisible by 3
-if (value % 3 === 0 && col < 2) {
-  // Decrement right neighbor (if not locked)
-  newValues[rightIndex] -= 1;
-}
-
-// Rule B: Divisible by 5
-if (value % 5 === 0 && row < 2) {
-  // Increment bottom neighbor by 2 (if not locked)
-  newValues[bottomIndex] += 2;
-}
+The grid is a 3×3 layout with index positions 0-8:
+```
+0 1 2
+3 4 5
+6 7 8
 ```
 
-#### Locked State Rules
+**Edge Cases Handled:**
+- Boxes in the last column (2, 5, 8) don't have a right neighbor, so Rule A doesn't apply
+- Boxes in the bottom row (6, 7, 8) don't have a bottom neighbor, so Rule B doesn't apply
+- Locked boxes are protected from all ripple effects
 
-- Boxes with values ≥ 15 are locked
-- Locked boxes cannot be clicked
-- Locked boxes cannot be modified by ripple effects
-- Locked boxes display red background with white text
+## Styling
 
-## Styling Details
+| State | Background | Text Color |
+|-------|-----------|-----------|
+| Even (0, 2, 4...) | #e0e0e0 | Black |
+| Odd (1, 3, 5...) | #1a237e | White |
+| Locked (≥15) | #ef4444 | White |
 
-### Box Styling
-
-| State | Background | Text Color | Cursor |
-|-------|-----------|-----------|--------|
-| Even (0, 2, 4...) | #e0e0e0 | Black | pointer |
-| Odd (1, 3, 5...) | #1a237e | White | pointer |
-| Locked (≥15) | #ef4444 | White | not-allowed |
-
-### Visual Effects
-
-- **Shadow**: `2px 2px 0px black`
-- **Border Radius**: `4px`
-- **Hover**: Scale up to 1.05 (non-locked boxes)
-- **Active**: Scale down to 0.95 (non-locked boxes)
-- **Transition**: 200ms ease-out
-
-## Edge Case Handling
-
-- **Right Edge**: Rule A doesn't apply to boxes in the last column
-- **Bottom Edge**: Rule B doesn't apply to boxes in the bottom row
-- **Locked Boxes**: Cannot be modified by any ripple effects
-- **State Safety**: All state updates use immutable patterns
-
-## Deployment
-
-### Deploy to Vercel
-
-1. Push code to GitHub
-2. Connect repository to Vercel
-3. Vercel will automatically detect Next.js and configure build settings
-4. Deploy with one click
-
-```bash
-# Or use Vercel CLI
-npm i -g vercel
-vercel
-```
-
-## Performance Optimizations
-
-- **Memoization**: `useCallback` hooks prevent unnecessary re-renders
-- **Immutable Updates**: State updates create new arrays to trigger proper re-renders
-- **Efficient Styling**: Inline styles only for dynamic values, Tailwind for static classes
+Each box has:
+- 4px rounded corners
+- 2px 2px 0px black shadow
+- Smooth hover animations
+- 200ms transitions
 
 ## Browser Support
 
@@ -188,26 +113,10 @@ vercel
 - Safari 14+
 - Mobile browsers (iOS Safari, Chrome Mobile)
 
-## Code Quality
-
-- TypeScript for type safety
-- ESLint configuration included
-- Clean, readable code with comments
-- Production-ready error handling
-
-## Future Enhancements (Optional)
-
-- Reset button to clear grid
-- Undo/Redo functionality
-- Game statistics (clicks, locked boxes)
-- Difficulty levels
-- Sound effects
-- Dark mode toggle
-
 ## License
 
 MIT
 
 ## Author
 
-Created as a technical assessment project demonstrating React, Next.js, and Tailwind CSS expertise.
+Created as a fun interactive puzzle game.
