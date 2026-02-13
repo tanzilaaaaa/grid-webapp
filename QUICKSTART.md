@@ -61,9 +61,7 @@ grid-app/
 ├── app/components/Grid.tsx    ← Main component
 ├── app/page.tsx               ← Home page
 ├── README.md                  ← Full documentation
-├── DEPLOYMENT.md              ← Deployment guide
-├── TESTING.md                 ← Test cases
-└── PROJECT_SUMMARY.md         ← Project overview
+└── QUICKSTART.md              ← This guide
 ```
 
 ## Key Features
@@ -90,7 +88,7 @@ npm run build
 ```
 
 **Vercel deployment issues?**
-Check [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed troubleshooting.
+Check [GITHUB_DEPLOYMENT_STEPS.md](./GITHUB_DEPLOYMENT_STEPS.md) for detailed troubleshooting.
 
 ## Next Steps
 
@@ -103,9 +101,8 @@ Check [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed troubleshooting.
 ## Documentation
 
 - **README.md** - Full project documentation
-- **DEPLOYMENT.md** - Step-by-step deployment guide
-- **TESTING.md** - Complete test cases
-- **PROJECT_SUMMARY.md** - Project overview
+- **GITHUB_DEPLOYMENT_STEPS.md** - Step-by-step deployment guide
+- **QUICKSTART.md** - This quick start guide
 
 ## Support
 
@@ -115,4 +112,4 @@ Check [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed troubleshooting.
 
 ---
 
-**Ready to deploy?** See [DEPLOYMENT.md](./DEPLOYMENT.md)
+**Ready to deploy?** See [GITHUB_DEPLOYMENT_STEPS.md](./GITHUB_DEPLOYMENT_STEPS.md)
